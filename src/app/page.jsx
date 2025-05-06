@@ -29,12 +29,14 @@ export default function Home() {
   const startCelebration = () => {
     setShowForYouBtn(false)
     setIsBirthday(true)
-    // Play the song
-    if (audioRef.current) {
-      audioRef.current.volume = 0.8;
-      audioRef.current.play().catch((e) => {
-        console.log("Autoplay prevented, user interaction needed", e)
-      })
+  
+    const audio = audioRef.current;
+    if (audio) {
+      audio.volume = 0.8;
+      // Only try to play AFTER interaction
+      audio.play().catch((e) => {
+        console.error("Playback failed:", e);
+      });
     }
   }
 
